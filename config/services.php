@@ -41,8 +41,8 @@ return [
     ],
 
     'forex' => [
-        'url' => '',
-        'username' => 'development',
+        'url' => 'https://forex.1forge.com/1.0.3/',
+        'username' => 'Dev',
         'api_key' => env('FOREX_API_KEY')
     ],
 
