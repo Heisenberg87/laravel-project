@@ -4,34 +4,40 @@
 @section('content')
     <div class="container">
         @if(isset($symbols))
-        <form action="/currency/search" method="POST">
-            @csrf
             <div class="form-group">
-                <label>From:</label>
-                <select class="form-control" name="from" id="from">
-                    @foreach($symbols as $symbol)
-                        <option value="{{$symbol}}" {{ request('from') == $symbol ? 'selected=selected' : '' }} >{{$symbol}}</option>
-                    @endforeach
-                </select>
+                {{Form::label('from','From')}}
+                {{Form::select('from', $symbols, request('from'), ['class' => 'form-control' , 'id' => 'from'])}}
             </div>
             <div class="form-group">
-                <label>To:</label>
-                <select class="form-control" name="to" id="to">
-                    @foreach($symbols as $symbol)
-                        <option value="{{$symbol}}" {{ request('to') == $symbol ? 'selected=selected' : '' }}>{{$symbol}}</option>
-                    @endforeach
-                </select>
+                {{Form::label('to','To')}}
+                {{Form::select('to', $symbols, request('to'), ['class' => 'form-control' , 'id' => 'to'])}}
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+            {{Form::button('Exchange', ['class' => 'btn btn-primary', 'id' => 'exchange'])}}
         @endif
-        @if(isset($data))
-            <div class="card mt-2">
-                <div class="card-body">
-                    <h5 class="card-title">{{$data->text}}</h5>
-                    <p class="card-text">Date: {{date('d-m-y H:i', $data->timestamp)}}</p>
-                </div>
+        <div class="card mt-2 d-none">
+            <div class="card-body">
             </div>
-        @endif
+        </div>
     </div>
+
+    <script type="text/javascript">
+
+        jQuery('#exchange').on('click', function() {
+
+            //ajax call
+            $.ajax({
+                type: 'get',
+                url: '{{url('/currency/search')}}',
+                data: {
+                    'from': $('#from').val(),
+                    'to'  : $('#to').val()
+                },
+                success: function(data) {
+                    var data = JSON.parse(data);
+                    jQuery('.card-body').html("<h5 class='card-title'>" + data.text + "</h5><p class='card-text'>Date:" + data.date + "</p>");
+                    jQuery('.card').removeClass('d-none');
+                }
+            });
+        });
+    </script>
 @endsection()

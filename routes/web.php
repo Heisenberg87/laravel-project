@@ -24,13 +24,11 @@ Route::get('services', 'PagesController@services');
 Route::resource('posts','PostsController');
 
 
-Route::post('currency/search', 'CurrencyController@search');
+Route::get('currency/search', 'CurrencyController@search');
 
 Route::resource('currency', 'CurrencyController',[
     'only' => ['index']
 ]);
-
-//oute::get('currency/search', 'CurrencyController@list');
 
 Auth::routes();
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 
 use GuzzleHttp\Exception\GuzzleException;
@@ -42,12 +43,11 @@ class CurrencyController extends Controller
         foreach (json_decode($result->getBody()) as $res) {
 
             $str       = str_split($res, 3);
-            $symbols[] = $str[0];
-            $symbols[] = $str[1];
+            $symbols[$str[0]] = $str[0];
+            $symbols[$str[1]] = $str[1];
         }
 
-
-        return view('currency.index')->with('symbols', array_unique($symbols));
+        return view('currency.index')->with('symbols', $symbols);
 
     }
 
@@ -70,23 +70,14 @@ class CurrencyController extends Controller
         $url =  $this->url . 'convert?' . $query_string;
 
         //make request
-        $result = $this->client->request('GET', $url);
+        $request = $this->client->request('GET', $url);
 
+        $result = json_decode($request->getBody()->getContents());
 
-        $form_request = $this->client->request('GET', $this->url . 'symbols?api_key=' . $this->api_key);
-
-        $symbols = array();
-
-        //split currency symbols
-        foreach (json_decode($form_request->getBody()) as $res) {
-
-            $str = str_split($res, 3);
-            $symbols[] = $str[0];
-            $symbols[] = $str[1];
-
-        }
-
-        return view('currency.index')->with('data', json_decode($result->getBody()))->with('symbols', array_unique($symbols));
+        return json_encode([
+            'text' => $result->text,
+            'date' => date('d-m-Y H:i',$result->timestamp),
+        ]);
 
     }
 
