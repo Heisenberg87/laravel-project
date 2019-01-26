@@ -20,11 +20,9 @@ Route::get('cv', 'PagesController@cv');
 Route::get('services', 'PagesController@services');
 
 
-
 Route::resource('posts','PostsController');
 
-
-Route::get('currency/search', 'CurrencyController@search');
+Route::get('currency/search', 'CurrencyController@search')->middleware('ajax');
 
 Route::resource('currency', 'CurrencyController',[
     'only' => ['index']
