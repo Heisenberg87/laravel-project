@@ -11,6 +11,17 @@
 |
 */
 
+
+
+//Debug Display all SQL executed in Eloquent
+/*
+\Event::listen('Illuminate\Database\Events\QueryExecuted', function ($query) {
+    echo'<pre>';
+    var_dump($query->sql);
+    echo'</pre>';
+});
+*/
+
 Route::get('/',  'PagesController@index');
 
 Route::get('about','PagesController@about');
