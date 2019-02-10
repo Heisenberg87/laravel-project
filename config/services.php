@@ -46,4 +46,11 @@ return [
         'api_key' => env('FOREX_API_KEY')
     ],
 
+    'marvel' => [
+        'url' => 'https://gateway.marvel.com/v1/public/',
+        'username' => 'Marvel',
+        'api_key' => env('MARVEL_PUBLIC_API_KEY'),
+        'private_key' => env('MARVEL_PRIVATE_API_KEY'),
+    ],
+
 ];

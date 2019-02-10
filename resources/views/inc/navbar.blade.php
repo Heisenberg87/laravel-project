@@ -15,6 +15,7 @@
                 <li class="nav-item" ><a class="nav-link" href="/posts">Blog</a></li>
                 <li class="nav-item" ><a class="nav-link" href="/about">About</a></li>
                 <li class="nav-item" ><a class="nav-link" href="/cv">CV</a></li>
+                <li class="nav-item" ><a class="nav-link" href="/contactus">Contact Us</a></li>
             </ul>
 
 
@@ -52,6 +53,68 @@
                     </li>
                     @endguest
             </ul>
+            <div style="position:relative;"  >
+                <input class="form-control text-white bg-dark border-primary" style="box-shadow: none;" id="search" type="search" placeholder="Character Search" aria-label="Search">
+                <div style="position: absolute; z-index:5; width:100%;">
+                    <div id="loading" class="d-none text-center bg-dark p-2">
+                        <div class="spinner-border spinner-border-sm text-danger" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                    <ul class="list-group" id="result">
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </nav>
+
+<script type="text/javascript">
+
+
+    $(document).ready(function() {
+
+
+
+        $('#search').keypress(debounce(function (event) {
+            // do the Ajax request
+
+            if ($('#search').val() == '') {
+                return false;
+            }
+
+            $('#result').html('');
+            $("#loading").removeClass('d-none');
+            //ajax call
+            $.ajax({
+                type: 'get',
+                url: '{{url('/character/search')}}',
+                data: {
+                    'name': $('#search').val()
+                },
+                success: function(data) {
+                    $("#loading").addClass('d-none');
+                    var data = JSON.parse(data);
+                    var result = $('#result').hide();
+                    result.html(data.result).fadeIn(200);
+
+                }
+            });
+
+        }, 500));
+
+
+    });
+
+    function debounce(fn, delay) {
+        var timer = null;
+        return function () {
+            var context = this, args = arguments;
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                fn.apply(context, args);
+            }, delay);
+        };
+    }
+
+</script>
