@@ -31,6 +31,11 @@ Route::get('cv', 'PagesController@cv');
 Route::get('services', 'PagesController@services');
 
 
+
+Route::get('contactus', 'ContactUsController@index');
+Route::post('contactus', 'ContactUsController@store');
+
+
 Route::resource('posts','PostsController');
 
 Route::get('currency/search', 'CurrencyController@search')->middleware('ajax');
@@ -42,3 +47,6 @@ Route::resource('currency', 'CurrencyController',[
 Auth::routes();
 
 Route::get('/dashboard', 'DashboardController@index');
+
+Route::get('character/search', 'CharactersController@search');
+Route::get('character/{id}/', 'CharactersController@show');

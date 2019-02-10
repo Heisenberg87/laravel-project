@@ -115,7 +115,7 @@ class PostsController extends Controller
     {
 
         //find post
-        $post = Post::find($id);
+        $post = Post::findorfail($id);
 
         //check if correct user
         if(auth()->user()->id != $post->user->id) {
@@ -211,7 +211,7 @@ class PostsController extends Controller
 
         $post->delete();
 
-        return redirect('/posts')->with('success', 'Post Removed');
+        return redirect('/dashboard')->with('success', 'Post Removed');
 
     }
 }
