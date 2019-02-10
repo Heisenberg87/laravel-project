@@ -18,29 +18,28 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/jquery.fancybox.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/jquery.min.js') }}"></script>
-
-
-
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('js/jquery.fancybox.js') }}"></script>
 
 </head>
 <body>
-    <div id="app">
+    <div id="app" >
 
         @include('inc.navbar')
-
         <div class="container mt-2">
-            @include('inc.messages')
-            @yield('content')
+        @include('inc.messages')
         </div>
-
-        <div class="container mt-2">
-            @include('inc.footer')
-        </div>
+        @yield('content')
     </div>
+
+    @include('inc.footer')
+
+
         <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
         <script>
             CKEDITOR.replace( 'article-ckeditor' );

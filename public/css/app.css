@@ -10511,6 +10511,24 @@ a.text-dark:focus {
   text-decoration: none;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  min-height: 100%;
+  position: relative;
+}
+
+html footer {
+  bottom: 0;
+  padding: 10px;
+  width: 100%;
+  position: absolute;
+  height: 120px;
+}
+
 /*! 
  * Template Name: Pillar - Bootstrap 4 Resume/CV Template for Developers
  * Version: 1.0.1
@@ -21008,6 +21026,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #434E5E;
+  margin-bottom: 120px;
 }
 
 .theme-bg-primary {
